@@ -1,31 +1,26 @@
 import streamlit as st
+import pandas as pd
 
-def main():
-    st.title('Línea de Tiempo')
+# Configurar el diseño en dos columnas
+columna_izquierda, columna_derecha = st.beta_columns(2)
 
-    # Paso 1
-    with st.expander("Paso 1: Descripción del paso 1"):
-        st.write("Detalles del paso 1")
+# En la columna izquierda, crear campos de entrada para la edad de cada persona
+with columna_izquierda:
+    edad_madre = st.number_input("Edad de la Madre", min_value=0, max_value=150, value=30, step=1)
+    edad_padre = st.number_input("Edad del Padre", min_value=0, max_value=150, value=35, step=1)
+    edad_hermana = st.number_input("Edad de la Hermana", min_value=0, max_value=150, value=25, step=1)
 
-    # Paso 2
-    with st.expander("Paso 2: Descripción del paso 2"):
-        st.write("Detalles del paso 2")
+# En la columna derecha, mostrar los resultados
+with columna_derecha:
+    # Guardar los datos en un diccionario
+    datos = {
+        "Persona": ["Madre", "Padre", "Hermana"],
+        "Edad": [edad_madre, edad_padre, edad_hermana]
+    }
 
-    # Paso 3
-    with st.expander("Paso 3: Descripción del paso 3"):
-        st.write("Detalles del paso 3")
+    # Crear un DataFrame de Pandas
+    df = pd.DataFrame(datos)
 
-    # Paso 4
-    with st.expander("Paso 4: Descripción del paso 4"):
-        st.write("Detalles del paso 4")
-
-    # Paso 5
-    with st.expander("Paso 5: Descripción del paso 5"):
-        st.write("Detalles del paso 5")
-
-    # Paso 6
-    with st.expander("Paso 6: Descripción del paso 6"):
-        st.write("Detalles del paso 6")
-
-if __name__ == '__main__':
-    main()
+    # Mostrar el DataFrame como una tabla
+    st.write("Edad de las personas:")
+    st.write(df)
